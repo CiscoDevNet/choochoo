@@ -10,32 +10,21 @@ package com.cisco.devnetlabs.choochoo.impl;
 
 import com.google.common.base.Optional;
 import com.google.common.util.concurrent.CheckedFuture;
-import com.google.common.util.concurrent.Futures;
-
 import com.google.common.util.concurrent.Monitor;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.*;
-
-import netscape.javascript.JSObject;
-import org.apache.commons.codec.binary.Base64;
-import org.apache.commons.io.IOUtils;
 import org.eclipse.jetty.client.ContentExchange;
 import org.eclipse.jetty.client.HttpClient;
 import org.eclipse.jetty.client.HttpExchange;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import org.opendaylight.controller.md.sal.binding.api.*;
 import org.opendaylight.controller.md.sal.common.api.data.LogicalDatastoreType;
 import org.opendaylight.controller.md.sal.common.api.data.ReadFailedException;
-import org.opendaylight.controller.md.sal.common.api.data.TransactionCommitFailedException;
-import org.opendaylight.controller.sal.binding.api.BindingAwareBroker.ProviderContext;
-import org.opendaylight.controller.sal.binding.api.BindingAwareProvider;
 import org.opendaylight.yang.gen.v1.urn.opendaylight.params.xml.ns.yang.choochoo.rev150105.ControlTrainInput;
-import org.opendaylight.yang.gen.v1.urn.opendaylight.params.xml.ns.yang.choochoo.rev150105.ControlTrainInputBuilder;
 import org.opendaylight.yang.gen.v1.urn.opendaylight.params.xml.ns.yang.choochoo.rev150105.ControlTrainOutput;
 import org.opendaylight.yang.gen.v1.urn.opendaylight.params.xml.ns.yang.choochoo.rev150105.ControlTrainOutputBuilder;
 import org.opendaylight.yang.gen.v1.urn.opendaylight.params.xml.ns.yang.choochoo.rev150105.TrainTopology;
@@ -46,11 +35,13 @@ import org.opendaylight.yang.gen.v1.urn.opendaylight.params.xml.ns.yang.choochoo
 import org.opendaylight.yang.gen.v1.urn.opendaylight.params.xml.ns.yang.choochoo.rev150105.train.topology.TrainKey;
 import org.opendaylight.yangtools.concepts.ListenerRegistration;
 import org.opendaylight.yangtools.yang.binding.InstanceIdentifier;
-import org.opendaylight.yangtools.yang.common.RpcResult;
-import org.opendaylight.yangtools.yang.common.RpcResultBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/*
+    The trainManager is responsible for discovering trains from the train server. writing them to the data store, and
+    im[lementing any interactions with the train server for controlling train functions.
+ */
 public class ChoochooTrainManager implements DataTreeChangeListener<TrainTopology> {
 
     private static final Logger LOG = LoggerFactory.getLogger(ChoochooTrainManager.class);
@@ -82,35 +73,19 @@ public class ChoochooTrainManager implements DataTreeChangeListener<TrainTopolog
         cleanupTopology();
     }
 
-    /**
-     * At some point, must figure out if the data store already has info in the data store, and NOT overwrite it
-     */
     public void initializeDatastore() {
+
+
         InstanceIdentifier<TrainTopology> iid = InstanceIdentifier.builder(TrainTopology.class).build();
         TrainTopology dt = new TrainTopologyBuilder().setTrain(Collections.<Train>emptyList()).build();
 
         ReadWriteTransaction tx = dataBroker.newReadWriteTransaction();
         
         // if the db already exists then this merge should be harmless and ensures we do not overwrite the data store
-        // otherwise, if the data store is empty, it gets initialized with empty
+        // otherwise, if the data store is empty, it gets initialized with empty topology
         tx.merge(LogicalDatastoreType.OPERATIONAL, iid, dt);
         tx.merge(LogicalDatastoreType.CONFIGURATION, iid, dt);
         tx.submit();
-
-        initializeTrainParms();
-    }
-
-    public void initializeTrainParms() {
-
-//        WriteTransaction tx = dataBroker.newWriteOnlyTransaction();
-//
-//        TrainTopology tt = new TrainTopologyBuilder()
-//                .setTrainController("171.68.22.52:5000")
-//                .setDefaultLocoId("5")
-//                .build();
-//
-//        tx.put(LogicalDatastoreType.CONFIGURATION, TRAIN_TOPOLOGY_IID, tt);
-//        tx.submit();
     }
 
     private void cleanupTopology() {
@@ -119,6 +94,7 @@ public class ChoochooTrainManager implements DataTreeChangeListener<TrainTopolog
 
         ReadWriteTransaction tx = dataBroker.newReadWriteTransaction();
 
+        // override what was in the data store with empty values
         tx.put(LogicalDatastoreType.OPERATIONAL, iid, dt);
         tx.put(LogicalDatastoreType.CONFIGURATION, iid, dt);
         tx.submit();

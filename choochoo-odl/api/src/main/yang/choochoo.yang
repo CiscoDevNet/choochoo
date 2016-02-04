@@ -93,9 +93,4 @@ module choochoo {
             }
         }
     }
-
-    rpc cleanup-store {
-        description
-          "clean data store";
-    }
 }
