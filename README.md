@@ -4,14 +4,14 @@ ChooChoo is an application designed for OpenDaylight (ODL). It controls the oper
 a 76 ft long track. A demo of this setup along with a learning lab will be available at Cisco Live! in Berlin.
 
 The track has 12 sensors evenly spaced along the track. As the train nears the even numbered sensors, the ODL application
-will respond to this by sounding the horn and slowing down the train.  When the train nears the odd numbered sensors, the
-train will turn off the horn, turn on the head light, and speed up the train.  The solution is a bit contrived but it 
+will respond to this by sounding the horn.  When the train nears the odd numbered sensors, the
+train will turn off the horn, turn on the head light.  The solution is a bit contrived but it 
 demonstrates how Opendaylight can detect when IOT sensor's send updates, perform some "control" logic to effect the state
 of the train, send HTTP messages to the arduino running the train controller.
 
 This application was developed as a educational tool to show how ODL can be used to manage IOT networks.  Typically, the
-introductory exposure to ODL is a "Hello World" tutorial.  The purpose of the learning lab is to show, 1) that
-ODL is NOT just for SDN, ie it has applicability to IOT control and data collection, and 2) introduce the student
+introductory exposure to ODL is a "Hello World" tutorial.  The purpose of the learning lab is to show, 1) 
+ODL is NOT just for SDN development, ie it has applicability to IOT control and data collection, and 2) introduce the student
 to a more complex tutorial.
 
 ## Team:
@@ -24,7 +24,7 @@ to a more complex tutorial.
 
 ### Project demo Link:
 
-[https://cto-github.cisco.com/johnburn/ChooChoo](https://cto-github.cisco.com/johnburn/ChooChoo)
+[Find the code here](https://github.com/CiscoDevNet/choochoo)
 
 ### Social Tags:
 
@@ -36,7 +36,7 @@ December 2015
 
 ### Current Status:
 
-Beta
+Beta - send questions to johnburn@cisco.com
 
 ## Application Overview:
 
@@ -69,14 +69,4 @@ Figure 1 depicts the architecture of the components used in this application.
 - [https://wiki.opendaylight.org/view/IoTDM:Main](https://wiki.opendaylight.org/view/IoTDM:Main)
 
 - [https://developer.cisco.com/site/neXt/](https://developer.cisco.com/site/neXt/)
-
-- [https://cto-github.cisco.com/johnburn/ChooChoo](https://cto-github.cisco.com/johnburn/ChooChoo)
-
-# ChooChoo Tutorial
-
-The goal of this tutorial is to introduce the developer to ODL.  Typically, we usually start with a basic
-HeloWorld! application BUT in this case we get right into the meat of a real world application.  All of the code is provided
-and a step by step explanation of the files is provided below.
-
-The code for this lab is [here](https://cto-github.cisco.com/johnburn/ChooChoo).
 
