@@ -1,0 +1,30 @@
+{
+  "name": "choochoo-angular",
+  "description": "choochoo-angular",
+  "main": "server.js",
+  "authors": [
+    "John Burns",
+    "Varun Seereeram"
+  ],
+  "license": "ISC",
+  "keywords": [
+    "choochoo-angular"
+  ],
+  "moduleType": [
+    "node"
+  ],
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-material": "~0.11.4",
+    "bootstrap": "~3.3.5",
+    "angular-route": "~1.4.7"
+  }
+}

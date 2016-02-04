@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html ng-app="choochoogui">
+<head>
+    <title>ChooChoo IOT Controller</title>
+</head>
+<body ng-controller="AppController as AppCtrl" ng-cloak>
+    <link rel="stylesheet" href="lib/next/css/next.css">
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="bower_components/angular-material/angular-material.min.css">
+
+    <script src="bower_components/angular/angular.min.js"></script>
+    <script src="bower_components/angular-material/angular-material.min.js"></script>
+    <script src="bower_components/angular-animate/angular-animate.min.js"></script>
+    <script src="bower_components/angular-aria/angular-aria.min.js"></script>
+
+    <script src="lib/lodash.min.js"></script>
+
+    <md-toolbar class="md-theme-light">
+        <h2 class="md-toolbar-tools white md-whiteframe-z2 float-left">
+            <a href="#" class="md-raised" id="openBtn">
+                <i class="glyphicon glyphicon-align-justify md-primary" ng-click="AppCtrl.toggleLeft()" hide-gt-md></i>
+            </a>
+            <span style="width:10px"></span>
+            <span style="margin-right: 5px">ChooChoo IOT Controller</span>
+            <span flex></span>
+            <span style="width:10px"></span>
+        </h2>
+    </md-toolbar>
+    <md-content layout="column" style="height:93%;" ng-controller="TrainOperationController as TrainOperCtrl" ng-cloak>
+        <section layout="row" flex>
+            <md-sidenav class="md-sidenav-left md-whiteframe-z2 offWhite" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')">
+                <md-toolbar class="md-theme-indigo">
+                    <h1 class="md-toolbar-tools white">
+                        <span style="width:10px"></span>
+                        IOT Trains
+                    </h1>
+                </md-toolbar>
+                <md-content layout-padding class="offWhite">
+                        <train-card></train-card>
+                </md-content>
+            </md-sidenav>
+            <md-content flex id="next-app"></md-content>
+            <md-sidenav class="md-sidenav-right md-whiteframe-z2 offWhite" md-component-id="right">
+                <md-toolbar class="md-theme-indigo" md-scroll-shrink>
+                    <div class="md-toolbar-tools white">
+                        <md-icon md-svg-src="resources/moddedtruck.svg" aria-label="Close dialog"></md-icon> Train (ID: {{TrainOperCtrl.trainId}}) Controls<span flex></span>
+                    </div>
+                </md-toolbar>
+                <md-content layout-padding class="offWhite">
+                    <operation-card></operation-card>
+                </md-content>
+            </md-sidenav>
+        </section>
+    </md-content>
+
+    <script src="lib/next/js/next.js"></script>
+
+    <link rel="stylesheet" href="css/style.css" type="text/css">
+    <script src="js/config.js"></script>
+    <script src="js/processor.js"></script>
+    <script src="js/app.js"></script>
+
+</body>
+</html>

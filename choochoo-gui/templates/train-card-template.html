@@ -1,0 +1,13 @@
+<md-progress-linear md-mode="indeterminate" ng-show="TrainCtrl.waiting"></md-progress-linear>
+<md-card  ng-repeat="train in TrainCtrl.trains | orderBy: 'dmoNodeIdFloat'">
+    <md-card-content>
+        <h5>{{train['train-controller']}}</h5>
+        <h2 class="md-title">
+            <md-icon md-svg-src="resources/moddedtruck.svg" aria-label="Close dialog"></md-icon>
+            {{train.label}}
+        </h2>
+        <br/>
+        <md-divider></md-divider>
+        <md-button class="md-actions md-primary " ng-click="AppCtrl.openRight(); TrainOperCtrl.loadOperations(train);">Control Train</md-button>
+    </md-card-content>
+</md-card>

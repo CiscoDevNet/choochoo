@@ -1,0 +1,12 @@
+<md-card  ng-repeat="operation in TrainOperCtrl.operations">
+    <md-card-content>
+        <h2 class="md-title">
+            <div class="glyphicon glyphicon-dashboard"></div>
+            Control {{operation}}
+        </h2>
+        <br/>
+        <md-divider></md-divider>
+        <md-button class="md-actions md-primary" ng-click="TrainOperCtrl.doOper(TrainOperCtrl.trainId, operation, 'on')" flex-sm="100" flex-md="100" flex-gt-md="auto">Turn On</md-button>
+        <md-button class="md-actions md-primary" ng-click="TrainOperCtrl.doOper(TrainOperCtrl.trainId, operation, 'off')" flex-sm="100" flex-md="100" flex-gt-md="auto">Turn Off</md-button>
+    </md-card-content>
+</md-card>

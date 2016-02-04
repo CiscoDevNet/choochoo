@@ -1,0 +1,101 @@
+module choochoo {
+
+    yang-version 1;
+    namespace "urn:opendaylight:params:xml:ns:yang:choochoo";
+    prefix "choochoo";
+
+    revision "2015-01-05" {
+        description "Initial revision of choochoo model";
+    }
+
+    /*
+    ** The broker address and the list of topics are configured here.  Each topic configured here is used in a call
+    ** to mqtt_subscribe.
+    */
+    container mqtt-parms {
+        config true;
+        leaf mqtt-broker {
+            type string;
+        }
+        list subscriber-topics {
+            leaf topic {
+                type string;
+            }
+        }
+    }
+
+    grouping control-parms-list {
+        list control-parm {
+            key name;
+            leaf name {
+                type string;
+            }
+            leaf content-json-string {
+                type string;
+            }
+        }
+    }
+
+    /*
+    ** The list of trains to control.  Each of the trains can be controlled ... the speed, horn, lights ...
+    */
+    container train-topology {
+
+        leaf train-controller {
+            type string;
+        }
+        leaf default-loco-id {
+            type string;
+        }
+
+        list train {
+            key loco-id;
+            leaf loco-id {
+                type string;
+            }
+
+            uses control-parms-list;
+
+            leaf name {
+                config true;
+                type string;
+            }
+        }
+    }
+
+    rpc control-train {
+        description
+          "Control a train in the topology";
+
+        input {
+            leaf loco-id {
+                mandatory true;
+                type string;
+            }
+
+            uses control-parms-list;
+        }
+
+        output {
+
+            leaf status {
+                mandatory true;
+                type enumeration {
+                    enum "OK" {
+                        value 1;
+                    }
+                    enum "FAILED" {
+                        value 2;
+                    }
+                }
+                description
+                    "Status of the configuration of the choo choo's parameters";
+            }
+        }
+    }
+
+    rpc cleanup-store {
+        description
+          "clean data store";
+    }
+}

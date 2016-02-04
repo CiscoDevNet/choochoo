@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- vi: set et smarttab sw=4 tabstop=4: -->
+<!--
+Copyright © 2015 Cisco Systems, Inc and others. All rights reserved.
+
+This program and the accompanying materials are made available under the
+terms of the Eclipse Public License v1.0 which accompanies this distribution,
+and is available at http://www.eclipse.org/legal/epl-v10.html
+-->
+<features name="odl-choochoo-${project.version}" xmlns="http://karaf.apache.org/xmlns/features/v1.2.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://karaf.apache.org/xmlns/features/v1.2.0 http://karaf.apache.org/xmlns/features/v1.2.0">
+  <repository>mvn:org.opendaylight.yangtools/features-yangtools/${yangtools.version}/xml/features</repository>
+  <repository>mvn:org.opendaylight.controller/features-mdsal/${mdsal.version}/xml/features</repository>
+  <repository>mvn:org.opendaylight.controller/features-restconf/${mdsal.version}/xml/features</repository>
+  <repository>mvn:org.opendaylight.iotdm/onem2m-features/${onem2m.version}/xml/features</repository>
+  <repository>mvn:org.opendaylight.dlux/features-dlux/${dlux.version}/xml/features</repository>
+
+  <feature name='odl-choochoo-api' version='${project.version}' description='OpenDaylight :: choochoo :: api'>
+    <feature version='${yangtools.version}'>odl-yangtools-models</feature>
+    <bundle>mvn:com.cisco.devnetlabs.choochoo/choochoo-api/${project.version}</bundle>
+  </feature>
+  <feature name='odl-choochoo' version='${project.version}' description='OpenDaylight :: choochoo'>
+    <feature version='${mdsal.version}'>odl-mdsal-broker</feature>
+    <feature version='${project.version}'>odl-choochoo-api</feature>
+    <feature version='${onem2m.version}'>odl-onem2m-core</feature>
+    <feature version='${onem2m.version}'>odl-onem2m-http</feature>
+    <bundle>wrap:mvn:org.eclipse.paho/org.eclipse.paho.client.mqttv3/${mqttclient.version}</bundle>
+    <bundle>mvn:com.cisco.devnetlabs.choochoo/choochoo-impl/${project.version}</bundle>
+    <configfile finalname="${configfile.directory}/choochoo.xml">mvn:com.cisco.devnetlabs.choochoo/choochoo-impl/${project.version}/xml/config</configfile>
+  </feature>
+  <feature name='odl-choochoo-rest' version='${project.version}' description='OpenDaylight :: choochoo :: REST'>
+    <feature version="${project.version}">odl-choochoo</feature>
+    <feature version="${mdsal.version}">odl-restconf</feature>
+  </feature>
+  <feature name='odl-choochoo-ui' version='${project.version}' description='OpenDaylight :: choochoo :: UI'>
+    <feature version="${project.version}">odl-choochoo-rest</feature>
+    <feature version="${mdsal.version}">odl-mdsal-apidocs</feature>
+    <feature version="${mdsal.version}">odl-mdsal-xsql</feature>
+    <feature version="${dlux.version}">odl-dlux-all</feature>
+  </feature>
+
+</features>
