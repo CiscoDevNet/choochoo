@@ -57,7 +57,7 @@ is happening with the IOT sensors along the track
     - a module that reacts to changes in the sensors by sending HTTP commands
 to the train
     - an API so that the ChooChoo GUI can send commands to the train.
-- ChooChoo GUI - a basic graphical user interface is provided to show the discovered trains on the track.  It allows certain aspects of the train to be controlled, such as sounding the horn, or turning on the headlamp.
+- ChooChoo GUI - a basic graphical user interface is provided to show the discovered trains on the track.  It allows certain aspects of the train to be controlled, such as sounding the horn, or turning on the headlamp.  The GUI can be reached at http://10.10.50.42:8000
 - YANG-UI - a GUI that allows users to view the YANG model for the ChooChoo app.
 - Train, track, and track sensors - arduinos are employed to monitor track sensors and to effect control of the train.
 
