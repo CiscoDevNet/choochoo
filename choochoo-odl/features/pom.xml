@@ -25,7 +25,7 @@ and is available at http://www.eclipse.org/legal/epl-v10.html INTERNAL
     <yangtools.version>0.7.4-SNAPSHOT</yangtools.version>
     <dlux.version>0.2.4-SNAPSHOT</dlux.version>
     <onem2m.version>0.0.5-SNAPSHOT</onem2m.version>
-    <mqttclient.version>1.0.2</mqttclient.version>
+    <mqttclient.version>1.2.1</mqttclient.version>
     <configfile.directory>etc/opendaylight/karaf</configfile.directory>
   </properties>
   <dependencyManagement>
